@@ -1,4 +1,4 @@
-package com.example.springboot.service;
+package com.example.springboot.config.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springboot.mapper.UserMapper;

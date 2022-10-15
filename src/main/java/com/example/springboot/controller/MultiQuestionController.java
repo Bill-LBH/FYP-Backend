@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import com.example.springboot.service.IUserService;
-import com.example.springboot.entity.User;
+import com.example.springboot.service.IMultiQuestionService;
+import com.example.springboot.entity.MultiQuestion;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,43 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-10-15
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/multi-question")
+public class MultiQuestionController {
 @Autowired
-private IUserService userService;
+private IMultiQuestionService multiQuestionService;
 
 // 新增或者更新
 @PostMapping
-public boolean save(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+public boolean save(@RequestBody MultiQuestion multiQuestion) {
+        return multiQuestionService.saveOrUpdate(multiQuestion);
         }
 
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id) {
-        return userService.removeById(id);
+        return multiQuestionService.removeById(id);
         }
 
 @PostMapping("/del/batch")
 public boolean deleteBatch(@RequestBody List<Integer> ids) {
-        return userService.removeByIds(ids);
+        return multiQuestionService.removeByIds(ids);
         }
 
 @GetMapping
-public List<User> findAll() {
-        return userService.list();
+public List<MultiQuestion> findAll() {
+        return multiQuestionService.list();
         }
 
 @GetMapping("/{id}")
-public User findOne(@PathVariable Integer id) {
-        return userService.getById(id);
+public MultiQuestion findOne(@PathVariable Integer id) {
+        return multiQuestionService.getById(id);
         }
 
 @GetMapping("/page")
-public Page<User> findPage(@RequestParam Integer pageNum,
+public Page<MultiQuestion> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<MultiQuestion> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
-        return userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return multiQuestionService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 
         }

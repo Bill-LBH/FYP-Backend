@@ -1,8 +1,8 @@
 package com.example.springboot.service.impl;
 
-import com.example.springboot.entity.User;
-import com.example.springboot.mapper.UserMapper;
-import com.example.springboot.service.IUserService;
+import com.example.springboot.entity.Student;
+import com.example.springboot.mapper.StudentMapper;
+import com.example.springboot.service.IStudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2022-10-15
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements IStudentService {
 
 }

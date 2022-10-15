@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import com.example.springboot.service.IUserService;
-import com.example.springboot.entity.User;
+import com.example.springboot.service.IFillQuestionService;
+import com.example.springboot.entity.FillQuestion;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,43 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-10-15
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/fill-question")
+public class FillQuestionController {
 @Autowired
-private IUserService userService;
+private IFillQuestionService fillQuestionService;
 
 // 新增或者更新
 @PostMapping
-public boolean save(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+public boolean save(@RequestBody FillQuestion fillQuestion) {
+        return fillQuestionService.saveOrUpdate(fillQuestion);
         }
 
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id) {
-        return userService.removeById(id);
+        return fillQuestionService.removeById(id);
         }
 
 @PostMapping("/del/batch")
 public boolean deleteBatch(@RequestBody List<Integer> ids) {
-        return userService.removeByIds(ids);
+        return fillQuestionService.removeByIds(ids);
         }
 
 @GetMapping
-public List<User> findAll() {
-        return userService.list();
+public List<FillQuestion> findAll() {
+        return fillQuestionService.list();
         }
 
 @GetMapping("/{id}")
-public User findOne(@PathVariable Integer id) {
-        return userService.getById(id);
+public FillQuestion findOne(@PathVariable Integer id) {
+        return fillQuestionService.getById(id);
         }
 
 @GetMapping("/page")
-public Page<User> findPage(@RequestParam Integer pageNum,
+public Page<FillQuestion> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<FillQuestion> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
-        return userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return fillQuestionService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 
         }

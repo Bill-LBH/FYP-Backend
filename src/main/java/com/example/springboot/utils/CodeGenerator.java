@@ -36,6 +36,22 @@ public class CodeGenerator {
                             .enableRestStyle();  // 开启生成@RestController 控制器
                     builder.addInclude("user") // 设置需要生成的表名
                             .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("teacher") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("exam") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("student") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("fill_question") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("judge_question") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("multi_question") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("score") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
+                    builder.addInclude("paper_manage") // 设置需要生成的表名
+                            .addTablePrefix("t_", "sys_"); // 设置过滤表前缀
                 })
 //                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();

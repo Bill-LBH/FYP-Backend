@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import com.example.springboot.service.IUserService;
-import com.example.springboot.entity.User;
+import com.example.springboot.service.IExamService;
+import com.example.springboot.entity.Exam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,43 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-10-15
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/exam")
+public class ExamController {
 @Autowired
-private IUserService userService;
+private IExamService examService;
 
 // 新增或者更新
 @PostMapping
-public boolean save(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+public boolean save(@RequestBody Exam exam) {
+        return examService.saveOrUpdate(exam);
         }
 
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id) {
-        return userService.removeById(id);
+        return examService.removeById(id);
         }
 
 @PostMapping("/del/batch")
 public boolean deleteBatch(@RequestBody List<Integer> ids) {
-        return userService.removeByIds(ids);
+        return examService.removeByIds(ids);
         }
 
 @GetMapping
-public List<User> findAll() {
-        return userService.list();
+public List<Exam> findAll() {
+        return examService.list();
         }
 
 @GetMapping("/{id}")
-public User findOne(@PathVariable Integer id) {
-        return userService.getById(id);
+public Exam findOne(@PathVariable Integer id) {
+        return examService.getById(id);
         }
 
 @GetMapping("/page")
-public Page<User> findPage(@RequestParam Integer pageNum,
+public Page<Exam> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
-        return userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return examService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 
         }

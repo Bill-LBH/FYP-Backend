@@ -1,6 +1,6 @@
 package com.example.springboot.service;
 
-import com.example.springboot.entity.User;
+import com.example.springboot.entity.FillQuestion;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author 林伯翰
  * @since 2022-10-15
  */
-public interface IUserService extends IService<User> {
+public interface IFillQuestionService extends IService<FillQuestion> {
 
 }

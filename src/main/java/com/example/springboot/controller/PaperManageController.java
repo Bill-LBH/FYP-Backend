@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import com.example.springboot.service.IUserService;
-import com.example.springboot.entity.User;
+import com.example.springboot.service.IPaperManageService;
+import com.example.springboot.entity.PaperManage;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,43 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-10-15
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/paper-manage")
+public class PaperManageController {
 @Autowired
-private IUserService userService;
+private IPaperManageService paperManageService;
 
 // 新增或者更新
 @PostMapping
-public boolean save(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+public boolean save(@RequestBody PaperManage paperManage) {
+        return paperManageService.saveOrUpdate(paperManage);
         }
 
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id) {
-        return userService.removeById(id);
+        return paperManageService.removeById(id);
         }
 
 @PostMapping("/del/batch")
 public boolean deleteBatch(@RequestBody List<Integer> ids) {
-        return userService.removeByIds(ids);
+        return paperManageService.removeByIds(ids);
         }
 
 @GetMapping
-public List<User> findAll() {
-        return userService.list();
+public List<PaperManage> findAll() {
+        return paperManageService.list();
         }
 
 @GetMapping("/{id}")
-public User findOne(@PathVariable Integer id) {
-        return userService.getById(id);
+public PaperManage findOne(@PathVariable Integer id) {
+        return paperManageService.getById(id);
         }
 
 @GetMapping("/page")
-public Page<User> findPage(@RequestParam Integer pageNum,
+public Page<PaperManage> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<PaperManage> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
-        return userService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        return paperManageService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 
         }

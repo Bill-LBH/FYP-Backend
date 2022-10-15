@@ -2,6 +2,7 @@ package ${package.Controller};
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ${table.controllerName} extends ${superControllerClass} {
 #else
 public class ${table.controllerName} {
 #end
-@Resource
+@Autowired
 private ${table.serviceName} ${table.entityPath}Service;
 
 // 新增或者更新
@@ -73,7 +74,7 @@ public ${entity} findOne(@PathVariable Integer id) {
 @GetMapping("/page")
 public Page<${entity}> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("id");
         return ${table.entityPath}Service.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
