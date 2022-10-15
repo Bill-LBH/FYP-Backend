@@ -4,7 +4,7 @@ package com.example.springboot.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
+
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -33,12 +33,12 @@ public boolean save(@RequestBody Exam exam) {
         }
 
 @DeleteMapping("/{id}")
-public Boolean delete(@PathVariable Integer id) {
+public Boolean delete(@PathVariable String id) {
         return examService.removeById(id);
         }
 
 @PostMapping("/del/batch")
-public boolean deleteBatch(@RequestBody List<Integer> ids) {
+public boolean deleteBatch(@RequestBody List<String> ids) {
         return examService.removeByIds(ids);
         }
 
@@ -48,7 +48,7 @@ public List<Exam> findAll() {
         }
 
 @GetMapping("/{id}")
-public Exam findOne(@PathVariable Integer id) {
+public Exam findOne(@PathVariable String id) {
         return examService.getById(id);
         }
 
@@ -56,7 +56,7 @@ public Exam findOne(@PathVariable Integer id) {
 public Page<Exam> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
         QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
+        queryWrapper.orderByDesc("examcode");
         return examService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 

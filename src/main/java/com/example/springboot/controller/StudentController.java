@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import com.example.springboot.config.service.IStudentService;
+import com.example.springboot.service.IStudentService;
 import com.example.springboot.entity.Student;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,12 +46,12 @@ public boolean save(@RequestBody Student student) {
         }
 
 @DeleteMapping("/{id}")
-public Boolean delete(@PathVariable Integer id) {
+public Boolean delete(@PathVariable String id) {
         return studentService.removeById(id);
         }
 
 @PostMapping("/del/batch")
-public boolean deleteBatch(@RequestBody List<Integer> ids) {
+public boolean deleteBatch(@RequestBody List<String> ids) {
         return studentService.removeByIds(ids);
         }
 
@@ -61,7 +61,7 @@ public List<Student> findAll() {
         }
 
 @GetMapping("/{id}")
-public Student findOne(@PathVariable Integer id) {
+public Student findOne(@PathVariable String id) {
         return studentService.getById(id);
         }
 

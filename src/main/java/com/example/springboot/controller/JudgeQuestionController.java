@@ -4,7 +4,7 @@ package com.example.springboot.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
+
 import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -56,7 +56,7 @@ public JudgeQuestion findOne(@PathVariable Integer id) {
 public Page<JudgeQuestion> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
         QueryWrapper<JudgeQuestion> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
+        queryWrapper.orderByDesc("questionid");
         return judgeQuestionService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 

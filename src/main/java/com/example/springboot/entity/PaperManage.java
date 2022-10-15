@@ -1,5 +1,7 @@
 package com.example.springboot.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -22,7 +24,7 @@ import lombok.Setter;
 public class PaperManage implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @TableId(value = "paperid",type = IdType.NONE)
     private Integer paperid;
 
     private Integer questiontype;
