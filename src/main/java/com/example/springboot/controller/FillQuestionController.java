@@ -2,6 +2,9 @@ package com.example.springboot.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.springboot.common.Constants;
+import com.example.springboot.common.Result;
+import com.example.springboot.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +61,21 @@ public Page<FillQuestion> findPage(@RequestParam Integer pageNum,
         QueryWrapper<FillQuestion> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("questionid");
         return fillQuestionService.page(new Page<>(pageNum, pageSize), queryWrapper);
+        }
+
+        @PostMapping("/fillQuestion")
+        public Result add(@RequestBody FillQuestion fillQuestion) {
+                int res = fillQuestionService.add(fillQuestion);
+                if (res != 0) {
+                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Add successfully",res);
+                }
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to add",res);
+        }
+
+        @GetMapping("/fillQuestionId")
+        public Result findOnlyQuestionId() {
+                FillQuestion res = fillQuestionService.findOnlyQuestionId();
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Search successfully",res);
         }
 
         }

@@ -24,7 +24,7 @@ import lombok.Setter;
 public class Score implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "scoreid",type = IdType.NONE)
+    @TableId(value = "scoreid",type = IdType.AUTO)
       private Integer scoreid;
 
     private String examcode;

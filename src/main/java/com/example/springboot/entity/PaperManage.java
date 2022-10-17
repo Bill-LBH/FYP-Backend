@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,10 +22,11 @@ import lombok.Setter;
 @Setter
   @TableName("paper_manage")
 @ApiModel(value = "PaperManage对象", description = "")
+@AllArgsConstructor
 public class PaperManage implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "paperid",type = IdType.NONE)
+    @TableId(value = "paperid",type = IdType.AUTO)
     private Integer paperid;
 
     private Integer questiontype;

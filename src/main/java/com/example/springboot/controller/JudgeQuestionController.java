@@ -2,6 +2,9 @@ package com.example.springboot.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.springboot.common.Constants;
+import com.example.springboot.common.Result;
+import com.example.springboot.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +43,20 @@ public Boolean delete(@PathVariable Integer id) {
 @PostMapping("/del/batch")
 public boolean deleteBatch(@RequestBody List<Integer> ids) {
         return judgeQuestionService.removeByIds(ids);
+        }
+        @PostMapping
+        public Result add(@RequestBody JudgeQuestion judgeQuestion) {
+                int res = judgeQuestionService.add(judgeQuestion);
+                if (res != 0) {
+                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Add successfully",res);
+                }
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to add",res);
+        }
+
+        @GetMapping("/judgeQuestionId")
+        public Result findOnlyQuestionId() {
+                JudgeQuestion res = judgeQuestionService.findOnlyQuestionId();
+                return  GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Search successfully",res);
         }
 
 @GetMapping

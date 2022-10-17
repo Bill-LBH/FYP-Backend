@@ -24,8 +24,8 @@ import lombok.Setter;
 public class MultiQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "questionid",type = IdType.NONE)
-      private Integer questionid;
+    @TableId(value = "questionid",type = IdType.AUTO)
+    private Integer questionid;
 
     private String subject;
 

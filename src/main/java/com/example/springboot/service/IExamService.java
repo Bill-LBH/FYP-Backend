@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-10-09
  */
 public interface IExamService extends IService<Exam> {
-
 }

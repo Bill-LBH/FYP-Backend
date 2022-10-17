@@ -25,8 +25,8 @@ public class Exam implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "examcode",type = IdType.NONE)
-      private String examcode;
+    @TableId(value = "examcode",type = IdType.AUTO)
+      private int examcode;
 
     private String source;
 

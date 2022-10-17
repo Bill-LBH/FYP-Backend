@@ -6,6 +6,9 @@ import com.example.springboot.service.IJudgeQuestionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -16,5 +19,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class JudgeQuestionServiceImpl extends ServiceImpl<JudgeQuestionMapper, JudgeQuestion> implements IJudgeQuestionService {
+    @Resource
+    JudgeQuestionMapper judgeQuestionMapper;
+    @Override
+    public List<Integer> findBySubject(String subject, Integer pageNo) {
+        return judgeQuestionMapper.findBySubject(subject,pageNo);
+    }
+
+    @Override
+    public JudgeQuestion findOnlyQuestionId() {
+        return judgeQuestionMapper.findOnlyQuestionId();
+    }
+
+    @Override
+    public int add(JudgeQuestion judgeQuestion) {
+        return judgeQuestionMapper.add(judgeQuestion);
+    }
 
 }

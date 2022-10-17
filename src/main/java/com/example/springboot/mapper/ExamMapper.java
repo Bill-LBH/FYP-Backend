@@ -2,6 +2,9 @@ package com.example.springboot.mapper;
 
 import com.example.springboot.entity.Exam;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>

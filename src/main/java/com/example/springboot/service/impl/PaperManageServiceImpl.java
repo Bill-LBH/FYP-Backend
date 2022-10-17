@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.springboot.service.IPaperManageService;
 import com.example.springboot.entity.PaperManage;
 import com.example.springboot.mapper.PaperManageMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -16,5 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PaperManageServiceImpl extends ServiceImpl<PaperManageMapper, PaperManage> implements IPaperManageService {
+    @Resource
+    private PaperManageMapper paperMapper;
+    @Override
+    public int add(PaperManage paperManage) {
+        return paperMapper.add(paperManage);
+    }
 
 }

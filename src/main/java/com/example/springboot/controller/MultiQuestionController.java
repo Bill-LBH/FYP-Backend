@@ -2,6 +2,9 @@ package com.example.springboot.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.springboot.common.Constants;
+import com.example.springboot.common.Result;
+import com.example.springboot.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +35,12 @@ public boolean save(@RequestBody MultiQuestion multiQuestion) {
         return multiQuestionService.saveOrUpdate(multiQuestion);
         }
 
+        @GetMapping("/multiQuestionId")
+        public Result findOnlyQuestion() {
+                MultiQuestion res = multiQuestionService.findOnlyQuestionId();
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Search successfully",res);
+        }
+
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id) {
         return multiQuestionService.removeById(id);
@@ -50,6 +59,16 @@ public List<MultiQuestion> findAll() {
 @GetMapping("/{id}")
 public MultiQuestion findOne(@PathVariable Integer id) {
         return multiQuestionService.getById(id);
+        }
+
+        @PostMapping("/MultiQuestion")
+        public Result add(@RequestBody MultiQuestion multiQuestion) {
+                int res = multiQuestionService.add(multiQuestion);
+                if (res != 0) {
+
+                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Add successfully",res);
+                }
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Add failed",res);
         }
 
 @GetMapping("/page")

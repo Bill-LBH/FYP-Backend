@@ -2,6 +2,9 @@ package com.example.springboot.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.springboot.common.Constants;
+import com.example.springboot.common.Result;
+import com.example.springboot.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,15 +33,14 @@ private IExamService examService;
 @PostMapping
 public boolean save(@RequestBody Exam exam) {
         return examService.saveOrUpdate(exam);
-        }
-
+}
 @DeleteMapping("/{id}")
-public Boolean delete(@PathVariable String id) {
+public Boolean delete(@PathVariable Integer id) {
         return examService.removeById(id);
         }
 
 @PostMapping("/del/batch")
-public boolean deleteBatch(@RequestBody List<String> ids) {
+public boolean deleteBatch(@RequestBody List<Integer> ids) {
         return examService.removeByIds(ids);
         }
 
@@ -48,7 +50,7 @@ public List<Exam> findAll() {
         }
 
 @GetMapping("/{id}")
-public Exam findOne(@PathVariable String id) {
+public Exam findOne(@PathVariable Integer id) {
         return examService.getById(id);
         }
 

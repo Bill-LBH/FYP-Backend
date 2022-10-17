@@ -18,5 +18,11 @@ public class GlobalExceptionHandler {
     public Result handle(ServiceException se){
         return Result.error(se.getCode(), se.getMessage());
     }
-
+    public static <T> Result buildApiResult(String code, String message, T data) {
+        Result apiResult = new Result();
+        apiResult.setCode(code);
+        apiResult.setMsg(message);
+        apiResult.setData(data);
+        return apiResult;
+    }
 }

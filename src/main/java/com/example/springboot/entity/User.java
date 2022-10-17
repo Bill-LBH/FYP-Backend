@@ -27,7 +27,7 @@ import lombok.Setter;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-  @TableId(value = "id",type = IdType.NONE)
+  @TableId(value = "id",type = IdType.AUTO)
       @ApiModelProperty("user id")
         private String id;
 

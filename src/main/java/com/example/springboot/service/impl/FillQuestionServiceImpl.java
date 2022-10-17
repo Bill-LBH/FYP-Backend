@@ -4,7 +4,11 @@ import com.example.springboot.entity.FillQuestion;
 import com.example.springboot.mapper.FillQuestionMapper;
 import com.example.springboot.service.IFillQuestionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +20,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FillQuestionServiceImpl extends ServiceImpl<FillQuestionMapper, FillQuestion> implements IFillQuestionService {
+    @Resource
+    FillQuestionMapper fillQuestionMapper;
+    @Override
+    public List<Integer> findBySubject(String subject, Integer pageNo) {
+        return fillQuestionMapper.findBySubject(subject,pageNo);
+    }
+
+    @Override
+    public int add(FillQuestion fillQuestion) {
+        return fillQuestionMapper.add(fillQuestion);
+    }
+
+    @Override
+    public FillQuestion findOnlyQuestionId() {
+        return fillQuestionMapper.findOnlyQuestionId();
+    }
 
 }
