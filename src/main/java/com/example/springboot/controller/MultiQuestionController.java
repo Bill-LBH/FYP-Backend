@@ -5,10 +5,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
 import com.example.springboot.exception.GlobalExceptionHandler;
+import com.example.springboot.service.impl.PaperManageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.example.springboot.service.IMultiQuestionService;
@@ -29,6 +33,9 @@ public class MultiQuestionController {
 @Autowired
 private IMultiQuestionService multiQuestionService;
 
+        @Autowired
+        private PaperManageServiceImpl paperManageService;
+
 // 新增或者更新
 @PostMapping
 public boolean save(@RequestBody MultiQuestion multiQuestion) {
@@ -41,9 +48,14 @@ public boolean save(@RequestBody MultiQuestion multiQuestion) {
                 return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Search successfully",res);
         }
 
-@DeleteMapping("/{id}")
-public Boolean delete(@PathVariable Integer id) {
-        return multiQuestionService.removeById(id);
+        @DeleteMapping("/{Questiontype}/{id}")
+        public Result delete(@PathVariable Integer Questiontype, @PathVariable Integer id) {
+                multiQuestionService.removeById(id);
+                Map<String,Object> map=new HashMap<>();
+                map.put("questiontype",Questiontype);
+                map.put("questionid",id);
+                paperManageService.removeByMap(map);
+                return Result.success();
         }
 
 @PostMapping("/del/batch")

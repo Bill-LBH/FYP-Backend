@@ -22,8 +22,8 @@ public interface JudgeQuestionMapper extends BaseMapper<JudgeQuestion> {
     @Select("select questionid from judge_question order by questionid desc limit 1")
     JudgeQuestion findOnlyQuestionId();
 
-    @Insert("insert into judge_question(subject,question,answer,analysis,level,section) values " +
-            "(#{subject},#{question},#{answer},#{analysis},#{level},#{section})")
+    @Insert("insert into judge_question(subject,question,answer,analysis,score,level,section) values " +
+            "(#{subject},#{question},#{answer},#{analysis},#{score},#{level},#{section})")
     int add(JudgeQuestion judgeQuestion);
 
 }

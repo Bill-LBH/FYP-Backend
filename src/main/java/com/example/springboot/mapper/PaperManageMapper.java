@@ -2,6 +2,7 @@ package com.example.springboot.mapper;
 
 import com.example.springboot.entity.PaperManage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 
 /**
@@ -16,5 +17,4 @@ public interface PaperManageMapper extends BaseMapper<PaperManage> {
     @Insert("insert into paper_manage(paperid,questiontype,questionid) values " +
             "(#{paperid},#{questiontype},#{questionid})")
     int add(PaperManage paperManage);
-
 }

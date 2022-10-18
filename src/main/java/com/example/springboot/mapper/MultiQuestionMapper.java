@@ -24,8 +24,8 @@ public interface MultiQuestionMapper extends BaseMapper<MultiQuestion> {
     MultiQuestion findOnlyQuestionId();
 
     @Options(useGeneratedKeys = true,keyProperty = "questionid")
-    @Insert("insert into multi_question(subject,question,answera,answerb,answerc,answerd,rightanswer,analysis,section,level) " +
-            "values(#{subject},#{question},#{answera},#{answerb},#{answerc},#{answerd},#{rightanswer},#{analysis},#{section},#{level})")
+    @Insert("insert into multi_question(subject,question,answera,answerb,answerc,answerd,rightanswer,score,analysis,section,level) " +
+            "values(#{subject},#{question},#{answera},#{answerb},#{answerc},#{answerd},#{rightanswer},#{score},#{analysis},#{section},#{level})")
     int add(MultiQuestion multiQuestion);
 
 }

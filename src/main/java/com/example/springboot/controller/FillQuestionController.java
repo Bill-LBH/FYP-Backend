@@ -5,10 +5,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
 import com.example.springboot.exception.GlobalExceptionHandler;
+import com.example.springboot.service.impl.PaperManageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.example.springboot.service.IFillQuestionService;
@@ -29,15 +33,24 @@ public class FillQuestionController {
 @Autowired
 private IFillQuestionService fillQuestionService;
 
+@Autowired
+private PaperManageServiceImpl paperManageService;
+
+
 // 新增或者更新
 @PostMapping
 public boolean save(@RequestBody FillQuestion fillQuestion) {
         return fillQuestionService.saveOrUpdate(fillQuestion);
         }
 
-@DeleteMapping("/{id}")
-public Boolean delete(@PathVariable Integer id) {
-        return fillQuestionService.removeById(id);
+@DeleteMapping("/{Questiontype}/{id}")
+public Result delete(@PathVariable Integer Questiontype, @PathVariable Integer id) {
+                fillQuestionService.removeById(id);
+                Map<String,Object> map=new HashMap<>();
+                map.put("questiontype",Questiontype);
+                map.put("questionid",id);
+                paperManageService.removeByMap(map);
+                return Result.success();
         }
 
 @PostMapping("/del/batch")

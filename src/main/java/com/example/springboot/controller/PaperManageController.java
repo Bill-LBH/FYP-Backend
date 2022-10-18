@@ -13,7 +13,10 @@ import com.example.springboot.vo.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.example.springboot.service.IPaperManageService;
@@ -22,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author 林伯翰
@@ -31,26 +34,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/paper-manage")
 public class PaperManageController {
-@Autowired
-private IPaperManageService paperManageService;
+    @Autowired
+    private IPaperManageService paperManageService;
 
-@Autowired
-MultiQuestionServiceImpl multiQuestionService;
+    @Autowired
+    MultiQuestionServiceImpl multiQuestionService;
 
-@Autowired
-FillQuestionServiceImpl fillQuestionService;
+    @Autowired
+    FillQuestionServiceImpl fillQuestionService;
 
-@Autowired
-JudgeQuestionServiceImpl judgeQuestionService;
+    @Autowired
+    JudgeQuestionServiceImpl judgeQuestionService;
 
-// 新增或者更新
-@PostMapping
-public boolean save(@RequestBody PaperManage paperManage) {
+    // 新增或者更新
+    @PostMapping
+    public boolean save(@RequestBody PaperManage paperManage) {
         return paperManageService.saveOrUpdate(paperManage);
-        }
+    }
 
-@PostMapping("/item")
-public Result ItemController(@RequestBody Item item){
+    @PostMapping("/item")
+    public Result ItemController(@RequestBody Item item) {
         Integer changeNumber = item.getChangeNumber();
         // 填空题
         Integer fillNumber = item.getFillNumber();
@@ -60,78 +63,76 @@ public Result ItemController(@RequestBody Item item){
         Integer paperId = item.getPaperId();
 
         // 选择题数据库获取
-        List<Integer>  changeNumbers = multiQuestionService.findBySubject(item.getSubject(), changeNumber);
-        if(changeNumbers==null){
-                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to fetch multiple-choice question database",null);
+        List<Integer> changeNumbers = multiQuestionService.findBySubject(item.getSubject(), changeNumber);
+        if (changeNumbers == null) {
+            return GlobalExceptionHandler.buildApiResult(Constants.CODE_400, "Failed to fetch multiple-choice question database", null);
         }
         for (Integer number : changeNumbers) {
-                PaperManage paperManage = new PaperManage(paperId,1,number);
-                int index = paperManageService.add(paperManage);
-                if(index==0)
-                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to save multiple-choice question",null);
+            PaperManage paperManage = new PaperManage(paperId, 1, number);
+            int index = paperManageService.add(paperManage);
+            if (index == 0)
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400, "Failed to save multiple-choice question", null);
         }
 
         // 填空题
         List<Integer> fills = fillQuestionService.findBySubject(item.getSubject(), fillNumber);
-        if(fills==null)
-                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to fetch fill-in question database",null);
+        if (fills == null)
+            return GlobalExceptionHandler.buildApiResult(Constants.CODE_400, "Failed to fetch fill-in question database", null);
         for (Integer fillNum : fills) {
-                PaperManage paperManage = new PaperManage(paperId,2,fillNum);
-                int index = paperManageService.add(paperManage);
-                if(index==0)
-                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to save fill_in question",null);
+            PaperManage paperManage = new PaperManage(paperId, 2, fillNum);
+            int index = paperManageService.add(paperManage);
+            if (index == 0)
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400, "Failed to save fill_in question", null);
         }
         // 判断题
         List<Integer> judges = judgeQuestionService.findBySubject(item.getSubject(), judgeNumber);
-        if(fills==null)
-                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to fetch judge question database",null);
+        if (fills == null)
+            return GlobalExceptionHandler.buildApiResult(Constants.CODE_400, "Failed to fetch judge question database", null);
         for (Integer judge : judges) {
-                PaperManage paperManage = new PaperManage(paperId,3,judge);
-                int index = paperManageService.add(paperManage);
-                if(index==0)
-                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Failed to save judge question",null);
+            PaperManage paperManage = new PaperManage(paperId, 3, judge);
+            int index = paperManageService.add(paperManage);
+            if (index == 0)
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400, "Failed to save judge question", null);
         }
 
-        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Form paper successfully",null);
-}
+        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200, "Form paper successfully", null);
+    }
 
-@DeleteMapping("/{id}")
-public Boolean delete(@PathVariable Integer id) {
-        return paperManageService.removeById(id);
-        }
 
-@PostMapping("/del/batch")
-public boolean deleteBatch(@RequestBody List<Integer> ids) {
+
+    @PostMapping("/del/batch")
+    public boolean deleteBatch(@RequestBody List<Integer> ids) {
         return paperManageService.removeByIds(ids);
-        }
+    }
 
-@GetMapping
-public List<PaperManage> findAll() {
+    @GetMapping
+    public List<PaperManage> findAll() {
         return paperManageService.list();
-        }
-        @PostMapping("/paperManage")
-        public Result add(@RequestBody PaperManage paperManage) {
-                int res = paperManageService.add(paperManage);
-                if (res != 0) {
-                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Add successfully",res);
-                }
-                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Add failed",res);
-        }
+    }
 
-@GetMapping("/{id}")
-public PaperManage findOne(@PathVariable Integer id) {
+    @PostMapping("/paperManage")
+    public Result add(@RequestBody PaperManage paperManage) {
+        int res = paperManageService.add(paperManage);
+        if (res != 0) {
+            return GlobalExceptionHandler.buildApiResult(Constants.CODE_200, "Add successfully", res);
+        }
+        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200, "Add failed", res);
+    }
+
+    @GetMapping("/{id}")
+    public PaperManage findOne(@PathVariable Integer id) {
         return paperManageService.getById(id);
-        }
+    }
 
-@GetMapping("/page")
-public Page<PaperManage> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize) {
+    @GetMapping("/page")
+    public Page<PaperManage> findPage(@RequestParam Integer pageNum,
+                                      @RequestParam Integer pageSize) {
         QueryWrapper<PaperManage> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("paperid");
         return paperManageService.page(new Page<>(pageNum, pageSize), queryWrapper);
-        }
+    }
 
 
-        }
+}
 
 
