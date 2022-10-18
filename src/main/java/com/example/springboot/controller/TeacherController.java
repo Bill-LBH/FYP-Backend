@@ -1,7 +1,12 @@
 package com.example.springboot.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.springboot.common.Constants;
+import com.example.springboot.common.Result;
+import com.example.springboot.entity.StudentDTO;
+import com.example.springboot.entity.TeacherDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +30,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class TeacherController {
 @Autowired
 private ITeacherService teacherService;
+
+        @PostMapping("/login")
+        public Result login(@RequestBody TeacherDTO teacherDTO) {
+                String Id = teacherDTO.getID();
+                String password = teacherDTO.getPassword();
+                if (StrUtil.isBlank(Id) || StrUtil.isBlank(password)) {
+                        return Result.error(Constants.CODE_400,"Argument error");
+                }
+                TeacherDTO dto= teacherService.login(teacherDTO);
+                return Result.success(dto);
+        }
 
 // 新增或者更新
 @PostMapping

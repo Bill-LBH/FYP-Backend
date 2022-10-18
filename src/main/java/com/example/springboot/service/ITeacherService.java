@@ -2,6 +2,7 @@ package com.example.springboot.service;
 
 import com.example.springboot.entity.Teacher;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.springboot.entity.TeacherDTO;
 
 /**
  * <p>
@@ -12,5 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-10-09
  */
 public interface ITeacherService extends IService<Teacher> {
+    TeacherDTO login(TeacherDTO teacherDTO);
 
 }
