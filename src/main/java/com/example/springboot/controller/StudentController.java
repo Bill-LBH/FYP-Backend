@@ -74,6 +74,7 @@ public Student findOne(@PathVariable String id) {
         return studentService.getById(id);
         }
 
+
 @GetMapping("/page")
 public Page<Student> findPage(@RequestParam Integer pageNum,
 @RequestParam Integer pageSize) {
