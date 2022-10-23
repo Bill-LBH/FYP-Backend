@@ -36,4 +36,9 @@ public class JudgeQuestionServiceImpl extends ServiceImpl<JudgeQuestionMapper, J
         return judgeQuestionMapper.add(judgeQuestion);
     }
 
+    @Override
+    public List<JudgeQuestion> findByIdAndType(Integer paperId) {
+        return judgeQuestionMapper.findByIdAndType(paperId);
+    }
+
 }

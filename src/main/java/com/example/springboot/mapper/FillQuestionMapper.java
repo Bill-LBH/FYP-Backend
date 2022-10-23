@@ -29,6 +29,9 @@ public interface FillQuestionMapper extends BaseMapper<FillQuestion> {
     @Select("select questionid from fill_question order by questionid desc limit 1")
     FillQuestion findOnlyQuestionId();
 
+    @Select("select * from fill_question where questionid in (select questionid from paper_manage where questiontype = 2 and paperid = #{paperId})")
+    List<FillQuestion> findByIdAndType(Integer paperId);
+
 
 
 }

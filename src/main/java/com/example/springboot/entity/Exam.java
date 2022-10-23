@@ -31,7 +31,7 @@ public class Exam implements Serializable {
 
     private String source;
 
-    private String paperid;
+    private Integer paperid;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime examdate;

@@ -4,6 +4,7 @@ import com.example.springboot.entity.Exam;
 import com.example.springboot.mapper.ExamMapper;
 import com.example.springboot.service.IExamService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,5 +19,11 @@ import javax.annotation.Resource;
  */
 @Service
 public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements IExamService {
+    @Resource
+    ExamMapper examMapper;
+    @Override
+    public Exam Lastexam(){
+        return examMapper.LastExam();
+    }
 
 }

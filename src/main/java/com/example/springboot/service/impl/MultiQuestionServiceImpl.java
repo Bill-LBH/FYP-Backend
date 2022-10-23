@@ -37,4 +37,9 @@ public class MultiQuestionServiceImpl extends ServiceImpl<MultiQuestionMapper, M
         return multiQuestionMapper.add(multiQuestion);
     }
 
+    @Override
+    public List<MultiQuestion> findByIdAndType(Integer PaperId) {
+        return multiQuestionMapper.findByIdAndType(PaperId);
+    }
+
 }

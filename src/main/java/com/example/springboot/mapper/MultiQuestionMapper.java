@@ -28,4 +28,7 @@ public interface MultiQuestionMapper extends BaseMapper<MultiQuestion> {
             "values(#{subject},#{question},#{answera},#{answerb},#{answerc},#{answerd},#{rightanswer},#{score},#{analysis},#{section},#{level})")
     int add(MultiQuestion multiQuestion);
 
+    @Select("select * from multi_question where questionid in (select questionid from paper_manage where questiontype = 1 and paperid = #{paperid})")
+    List<MultiQuestion> findByIdAndType(Integer paperid);
+
 }

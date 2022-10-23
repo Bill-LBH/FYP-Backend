@@ -20,4 +20,6 @@ public interface IMultiQuestionService extends IService<MultiQuestion> {
 
     int add(MultiQuestion multiQuestion);
 
+    List<MultiQuestion> findByIdAndType(Integer PaperId);
+
 }

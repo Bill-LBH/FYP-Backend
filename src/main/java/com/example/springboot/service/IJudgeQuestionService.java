@@ -19,5 +19,5 @@ public interface IJudgeQuestionService extends IService<JudgeQuestion> {
 
     int add(JudgeQuestion judgeQuestion);
 
-
+    List<JudgeQuestion> findByIdAndType(Integer paperId);
 }

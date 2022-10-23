@@ -37,4 +37,9 @@ public class FillQuestionServiceImpl extends ServiceImpl<FillQuestionMapper, Fil
         return fillQuestionMapper.findOnlyQuestionId();
     }
 
+    @Override
+    public List<FillQuestion> findByIdAndType(Integer paperId) {
+        return fillQuestionMapper.findByIdAndType(paperId);
+    }
+
 }

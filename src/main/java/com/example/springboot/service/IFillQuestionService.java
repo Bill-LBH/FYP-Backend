@@ -19,4 +19,6 @@ public interface IFillQuestionService extends IService<FillQuestion> {
 
     FillQuestion findOnlyQuestionId();
 
+    List<FillQuestion> findByIdAndType(Integer paperId);
+
 }

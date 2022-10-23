@@ -26,4 +26,7 @@ public interface JudgeQuestionMapper extends BaseMapper<JudgeQuestion> {
             "(#{subject},#{question},#{answer},#{analysis},#{score},#{level},#{section})")
     int add(JudgeQuestion judgeQuestion);
 
+    @Select("select * from judge_question where questionid in (select questionid from paper_manage where questiontype = 3 and paperid = #{paperId})")
+    List<JudgeQuestion> findByIdAndType(Integer paperId);
+
 }

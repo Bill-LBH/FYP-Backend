@@ -50,8 +50,20 @@ public List<Exam> findAll() {
         }
 
 @GetMapping("/{id}")
-public Exam findOne(@PathVariable Integer id) {
-        return examService.getById(id);
+public Result findOne(@PathVariable Integer id) {
+        Exam res = examService.getById(id);
+        if(res == null) {
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Exam code is not exist",null);
+        }
+        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Request successfully！",res);
+        }
+        @GetMapping("/last")
+        public Result Lastcode(){
+        Exam res=examService.Lastexam();
+                if(res == null) {
+                        return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Exam code is not exist",null);
+                }
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Request successfully！",res);
         }
 
 @GetMapping("/page")

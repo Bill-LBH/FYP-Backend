@@ -26,7 +26,7 @@ import lombok.Setter;
 public class PaperManage implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @TableId(value = "paperid",type = IdType.AUTO)
+    @TableId(value = "paperid",type = IdType.NONE)
     private Integer paperid;
 
     private Integer questiontype;

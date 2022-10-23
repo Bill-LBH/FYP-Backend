@@ -4,6 +4,7 @@ package com.example.springboot.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
+import com.example.springboot.entity.*;
 import com.example.springboot.exception.GlobalExceptionHandler;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.service.impl.FillQuestionServiceImpl;
@@ -20,7 +21,6 @@ import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.example.springboot.service.IPaperManageService;
-import com.example.springboot.entity.PaperManage;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -120,8 +120,12 @@ public class PaperManageController {
     }
 
     @GetMapping("/{id}")
-    public PaperManage findOne(@PathVariable Integer id) {
-        return paperManageService.getById(id);
+    public Result findOne(@PathVariable Integer id) {
+        PaperManage res = paperManageService.getById(id);
+        if(res == null) {
+            return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Exam code is not exist",null);
+        }
+        return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Request successfully！",res);
     }
 
     @GetMapping("/page")
@@ -130,6 +134,18 @@ public class PaperManageController {
         QueryWrapper<PaperManage> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("paperid");
         return paperManageService.page(new Page<>(pageNum, pageSize), queryWrapper);
+    }
+
+    @GetMapping("/paper/{paperId}")
+    public Map<Integer, List<?>> findById(@PathVariable("paperId") Integer paperId) {
+        List<MultiQuestion> multiQuestionRes = multiQuestionService.findByIdAndType(paperId);   //选择题题库 1
+        List<FillQuestion> fillQuestionsRes = fillQuestionService.findByIdAndType(paperId);     //填空题题库 2
+        List<JudgeQuestion> judgeQuestionRes = judgeQuestionService.findByIdAndType(paperId);   //判断题题库 3
+        Map<Integer, List<?>> map = new HashMap<>();
+        map.put(1,multiQuestionRes);
+        map.put(2,fillQuestionsRes);
+        map.put(3,judgeQuestionRes);
+        return  map;
     }
 
 
