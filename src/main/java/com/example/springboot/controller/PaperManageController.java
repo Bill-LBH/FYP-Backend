@@ -121,7 +121,9 @@ public class PaperManageController {
 
     @GetMapping("/{id}")
     public Result findOne(@PathVariable Integer id) {
-        PaperManage res = paperManageService.getById(id);
+        QueryWrapper<PaperManage> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("questionid",id);
+        PaperManage res= paperManageService.getOne(queryWrapper);
         if(res == null) {
             return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Exam code is not exist",null);
         }
