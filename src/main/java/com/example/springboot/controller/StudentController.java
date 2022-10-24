@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
@@ -77,8 +78,19 @@ public Student findOne(@PathVariable String id) {
 
 @GetMapping("/page")
 public Page<Student> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize) {
+@RequestParam Integer pageSize,@RequestParam(defaultValue = "") String id,
+                              @RequestParam(defaultValue = "") String major,
+                              @RequestParam(defaultValue = "") String username) {
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+        if (!"".equals(id)) {
+                queryWrapper.like("id", id);
+        }
+        if (!"".equals(username)) {
+                queryWrapper.like("username", username);
+        }
+        if (!"".equals(major)) {
+                queryWrapper.like("major", major);
+        }
         queryWrapper.orderByDesc("id");
         return studentService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }

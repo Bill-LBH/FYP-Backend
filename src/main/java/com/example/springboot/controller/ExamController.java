@@ -68,8 +68,16 @@ public Result findOne(@PathVariable Integer id) {
 
 @GetMapping("/page")
 public Page<Exam> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize) {
+@RequestParam Integer pageSize, @RequestParam String source,
+                           @RequestParam String paperid) {
         QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
+        if (!"".equals(source)) {
+                queryWrapper.like("source", source);
+        }
+        if (!"".equals(paperid)) {
+                int paperid_int = Integer.parseInt(paperid);
+                queryWrapper.like("paperid", paperid_int);
+        }
         queryWrapper.orderByDesc("examcode");
         return examService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }

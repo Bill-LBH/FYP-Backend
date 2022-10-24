@@ -101,8 +101,14 @@ public MultiQuestion findOne(@PathVariable Integer id) {
 
 @GetMapping("/page")
 public Page<MultiQuestion> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize) {
+@RequestParam Integer pageSize, @RequestParam String subject, @RequestParam String section) {
         QueryWrapper<MultiQuestion> queryWrapper = new QueryWrapper<>();
+        if (!"".equals(subject)) {
+                queryWrapper.like("subject", subject);
+        }
+        if (!"".equals(section)) {
+                queryWrapper.like("section", section);
+        }
         queryWrapper.orderByDesc("questionid");
         return multiQuestionService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }

@@ -99,8 +99,14 @@ public JudgeQuestion findOne(@PathVariable Integer id) {
 
 @GetMapping("/page")
 public Page<JudgeQuestion> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize) {
+@RequestParam Integer pageSize,@RequestParam String subject, @RequestParam String section) {
         QueryWrapper<JudgeQuestion> queryWrapper = new QueryWrapper<>();
+        if (!"".equals(subject)) {
+                queryWrapper.like("subject", subject);
+        }
+        if (!"".equals(section)) {
+                queryWrapper.like("section", section);
+        }
         queryWrapper.orderByDesc("questionid");
         return judgeQuestionService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
