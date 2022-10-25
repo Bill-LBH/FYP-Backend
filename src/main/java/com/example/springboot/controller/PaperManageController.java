@@ -110,6 +110,13 @@ public class PaperManageController {
         return paperManageService.list();
     }
 
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Integer id){
+        QueryWrapper<PaperManage> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("questionid",id);
+        return paperManageService.remove(queryWrapper);
+    }
+
     @PostMapping("/paperManage")
     public Result add(@RequestBody PaperManage paperManage) {
         int res = paperManageService.add(paperManage);
