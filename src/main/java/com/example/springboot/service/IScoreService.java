@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-10-09
  */
 public interface IScoreService extends IService<Score> {
+    int add(Score score);
 
 }

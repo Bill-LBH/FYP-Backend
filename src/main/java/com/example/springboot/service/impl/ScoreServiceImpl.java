@@ -4,7 +4,10 @@ import com.example.springboot.entity.Score;
 import com.example.springboot.mapper.ScoreMapper;
 import com.example.springboot.service.IScoreService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -16,5 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements IScoreService {
+    @Resource
+    private ScoreMapper scoreMapper;
+    @Override
+    public int add(Score score) {
+        return scoreMapper.add(score);
+    }
 
 }

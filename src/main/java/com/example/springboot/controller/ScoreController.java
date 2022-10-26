@@ -2,6 +2,9 @@ package com.example.springboot.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.springboot.common.Constants;
+import com.example.springboot.common.Result;
+import com.example.springboot.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +31,13 @@ private IScoreService scoreService;
 
 // 新增或者更新
 @PostMapping
-public boolean save(@RequestBody Score score) {
-        return scoreService.saveOrUpdate(score);
+public Result save(@RequestBody Score score) {
+        int res = scoreService.add(score);
+        if (res == 0) {
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Add score failed",res);
+        }else {
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Successful",res);
+        }
         }
 
 @DeleteMapping("/{id}")
