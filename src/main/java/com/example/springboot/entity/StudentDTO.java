@@ -8,4 +8,5 @@ public class StudentDTO {
     private String password;
     private String avatar;
     private String nickname;
+    private String token;
 }

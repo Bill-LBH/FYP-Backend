@@ -126,10 +126,12 @@ public class PaperManageController {
         return GlobalExceptionHandler.buildApiResult(Constants.CODE_200, "Add failed", res);
     }
 
-    @GetMapping("/{id}")
-    public Result findOne(@PathVariable Integer id) {
+    @GetMapping("/{id}/{paperid}/{type}")
+    public Result findOne(@PathVariable Integer id, @PathVariable Integer paperid, @PathVariable Integer type) {
         QueryWrapper<PaperManage> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("questionid",id);
+        queryWrapper.eq("paperid",paperid);
+        queryWrapper.eq("questiontype",type);
         PaperManage res= paperManageService.getOne(queryWrapper);
         if(res == null) {
             return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Exam code is not exist",null);
