@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IExamService extends IService<Exam> {
     Exam Lastexam();
+    boolean updatescore(int total, String id);
 }

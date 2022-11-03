@@ -4,6 +4,7 @@ package com.example.springboot.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
+import com.example.springboot.entity.ScoreDTO;
 import com.example.springboot.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,20 @@ private IExamService examService;
 public boolean save(@RequestBody Exam exam) {
         return examService.saveOrUpdate(exam);
 }
+
+
+@PostMapping("/score")
+public Result update(@RequestBody ScoreDTO scoreDTO){
+        boolean res=examService.updatescore(scoreDTO.getScore(),scoreDTO.getId());
+        if(!res) {
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_400,"Update failed",null);
+        }
+        else {
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200, "Update successfully！", res);
+        }
+
+}
+
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable Integer id) {
         return examService.removeById(id);

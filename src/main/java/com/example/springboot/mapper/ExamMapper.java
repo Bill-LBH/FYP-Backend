@@ -19,4 +19,7 @@ public interface ExamMapper extends BaseMapper<Exam> {
     @Select("select examcode from exam order by examcode desc limit 1")
     Exam LastExam();
 
+    @Update("UPDATE exam set totalscore = #{total} where paperid =#{paperid}")
+    boolean updatescore(int total,String paperid);
+
 }

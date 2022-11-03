@@ -26,4 +26,9 @@ public class ExamServiceImpl extends ServiceImpl<ExamMapper, Exam> implements IE
         return examMapper.LastExam();
     }
 
+    @Override
+    public boolean updatescore(int total,String id){
+        return examMapper.updatescore(total,id);
+    }
+
 }
