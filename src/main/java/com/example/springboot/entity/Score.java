@@ -35,7 +35,7 @@ public class Score implements Serializable {
 
     private Integer score;
 
-    private LocalDateTime answerdate;
+    private String answerdate;
 
 
 }
