@@ -7,6 +7,6 @@ public class StudentDTO {
     private String id;
     private String password;
     private String avatar;
-    private String nickname;
+    private String username;
     private String token;
 }
