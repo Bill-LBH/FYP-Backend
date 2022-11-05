@@ -62,8 +62,15 @@ public Score findOne(@PathVariable Integer id) {
 
 @GetMapping("/page")
 public Page<Score> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize) {
+@RequestParam Integer pageSize,@RequestParam(defaultValue = "") String id,
+                            @RequestParam(defaultValue = "") String examcode) {
         QueryWrapper<Score> queryWrapper = new QueryWrapper<>();
+        if (!"".equals(id)) {
+                queryWrapper.like("studentid", id);
+        }
+        if (!"".equals(examcode)) {
+                queryWrapper.like("examcode", examcode);
+        }
         queryWrapper.orderByDesc("scoreid");
         return scoreService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }

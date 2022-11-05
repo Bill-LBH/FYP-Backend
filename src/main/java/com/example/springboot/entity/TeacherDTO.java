@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class TeacherDTO {
-    String ID;
-    String password;
+    private String ID;
+    private String password;
+    private String username;
+    private String token;
 }
