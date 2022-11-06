@@ -1,6 +1,7 @@
 package com.example.springboot.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.common.Constants;
 import com.example.springboot.common.Result;
@@ -61,8 +62,7 @@ public Score findOne(@PathVariable Integer id) {
         }
 
 @GetMapping("/page")
-public Page<Score> findPage(@RequestParam Integer pageNum,
-@RequestParam Integer pageSize,@RequestParam(defaultValue = "") String id,
+public Page<Score> findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize,@RequestParam(defaultValue = "") String id,
                             @RequestParam(defaultValue = "") String examcode) {
         QueryWrapper<Score> queryWrapper = new QueryWrapper<>();
         if (!"".equals(id)) {
@@ -75,6 +75,13 @@ public Page<Score> findPage(@RequestParam Integer pageNum,
         return scoreService.page(new Page<>(pageNum, pageSize), queryWrapper);
         }
 
+        @GetMapping("/page2")
+        public Result findPage2(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(defaultValue ="") String id)
+        {
+                Page<Score> score = new Page<>(pageNum,pageSize);
+                IPage<Score> res = scoreService.findById(score, id);
+                return GlobalExceptionHandler.buildApiResult(Constants.CODE_200,"Select successfully",res);
+        }
         }
 
 

@@ -1,5 +1,7 @@
 package com.example.springboot.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.springboot.entity.Score;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,5 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IScoreService extends IService<Score> {
     int add(Score score);
+
+    IPage<Score> findById(Page page, String studentId);
 
 }
