@@ -12,6 +12,7 @@ import com.example.springboot.service.ITeacherService;
 import com.example.springboot.entity.Teacher;
 import com.example.springboot.mapper.TeacherMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.springboot.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,9 +31,11 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         Teacher one = getTeacherInfo(teacherDTO);
         if (one != null) {
             BeanUtil.copyProperties(one, teacherDTO, true);
+            String token = TokenUtils.genToken(one.getId(), one.getPassword());
+            teacherDTO.setToken(token);
             return teacherDTO;
         } else {
-            throw new ServiceException(Constants.CODE_600, "Student name or password error");
+            throw new ServiceException(Constants.CODE_600, "Teacher name or password error");
         }
     }
 

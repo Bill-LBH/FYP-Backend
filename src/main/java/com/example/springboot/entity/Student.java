@@ -46,5 +46,5 @@ public class Student implements Serializable {
 
     private String institute;
 
-
+    private String url;
 }

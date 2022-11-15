@@ -8,8 +8,10 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.springboot.common.Constants;
 import com.example.springboot.entity.Student;
+import com.example.springboot.entity.Teacher;
 import com.example.springboot.exception.ServiceException;
 import com.example.springboot.service.IStudentService;
+import com.example.springboot.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 public class JwtInterceptor implements HandlerInterceptor {
     @Autowired
     private IStudentService studentService;
+    @Autowired
+    private ITeacherService teacherService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = request.getHeader("token");
@@ -27,27 +31,41 @@ public class JwtInterceptor implements HandlerInterceptor {
             return true;
         }
         if (StrUtil.isBlank(token)) {
-            throw new ServiceException(Constants.CODE_401, "无token，请重新登录");
+            throw new ServiceException(Constants.CODE_401, "No token, please log in again");
         }
         // 获取 token 中的 user id
-        String studentId;
+        String Id;
         try {
-            studentId = JWT.decode(token).getAudience().get(0);
+            Id = JWT.decode(token).getAudience().get(0);
         } catch (JWTDecodeException j) {
-            throw new ServiceException(Constants.CODE_401, "token验证失败，请重新登录");
+            throw new ServiceException(Constants.CODE_401, "token verification failed, please log in again");
         }
-        Student student = studentService.getById(studentId);
+        Student student = studentService.getById(Id);
+        Teacher teacher= teacherService.getById(Id);
         if (student == null) {
-            throw new ServiceException(Constants.CODE_401, "用户不存在，请重新登录");
+            if(teacher==null){
+                throw new ServiceException(Constants.CODE_401, "User does not exist, please log in again");
+            }
         }
 
-        // 用户密码加签验证 token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(student.getPassword())).build();
-        try {
-            jwtVerifier.verify(token); // 验证token
-        } catch (JWTVerificationException e) {
-            throw new ServiceException(Constants.CODE_401, "token验证失败，请重新登录");
+        if(student!=null){
+            // 用户密码加签验证 token
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(student.getPassword())).build();
+            try {
+                jwtVerifier.verify(token); // 验证token
+            } catch (JWTVerificationException e) {
+                throw new ServiceException(Constants.CODE_401, "token verification failed, please log in again");
+            }
         }
+        if (teacher !=null){
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(teacher.getPassword())).build();
+            try {
+                jwtVerifier.verify(token); // 验证token
+            } catch (JWTVerificationException e) {
+                throw new ServiceException(Constants.CODE_401, "token verification failed, please log in again");
+            }
+        }
+
         return true;
 
     }

@@ -29,7 +29,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         Student one = getStudentInfo(studentDTO);
         if (one != null) {
             BeanUtil.copyProperties(one, studentDTO, true);
-            String token = TokenUtils.genToken(one.getId().toString(), one.getPassword());
+            String token = TokenUtils.genToken(one.getId(), one.getPassword());
             studentDTO.setToken(token);
             return studentDTO;
         } else {
