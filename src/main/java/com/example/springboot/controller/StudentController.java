@@ -55,6 +55,9 @@ public boolean save(@RequestBody Student student) {
         return studentService.saveOrUpdate(student);
         }
 
+        @PostMapping("/register")
+        public boolean register(@RequestBody Student student) {return studentService.updateById(student);}
+
 @DeleteMapping("/{id}")
 public Boolean delete(@PathVariable String id) {
         return studentService.removeById(id);
@@ -74,6 +77,8 @@ public List<Student> findAll() {
 public Student findOne(@PathVariable String id) {
         return studentService.getById(id);
         }
+        @GetMapping("/verify/{id}")
+        public Student verify(@PathVariable String id) {return studentService.getById(id);}
 
 
 @GetMapping("/page")
