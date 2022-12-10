@@ -88,13 +88,13 @@ public class ArcSoft {
             //特征提取1
             FaceFeature faceFeature = new FaceFeature();
             errorCode = faceEngine.extractFaceFeature(imageInfo.getImageData(), imageInfo.getWidth(), imageInfo.getHeight(), imageInfo.getImageFormat(), faceInfoList.get(0), faceFeature);
-            System.out.println("特征值大小：" + faceFeature.getFeatureData().length);
+            System.out.println("特征值1大小：" + faceFeature.getFeatureData().length);
             byte[] tz = faceFeature.getFeatureData();
 
             //特征提取2
             FaceFeature faceFeature2 = new FaceFeature();
             errorCode = faceEngine.extractFaceFeature(imageInfo2.getImageData(), imageInfo2.getWidth(), imageInfo2.getHeight(), imageInfo.getImageFormat(), faceInfoList2.get(0), faceFeature2);
-            System.out.println("特征值大小：" + faceFeature.getFeatureData().length);
+            System.out.println("特征值2大小：" + faceFeature.getFeatureData().length);
             //特征比对
             FaceFeature targetFaceFeature = new FaceFeature();
             targetFaceFeature.setFeatureData(faceFeature.getFeatureData());
