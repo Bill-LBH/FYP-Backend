@@ -56,7 +56,7 @@ public class Camer {
         }
 
 //        test 照片为你本机存储的对比照片
-        float v = arcSoft.faceRecognition("D:\\Final year project\\Springboot\\File\\48a74b75b7b142aaa3069eb1990ce5bf.jpg", "D:\\Final year project\\Springboot\\File\\8ee4c53631d14a1d918d3a5c3ce63803.jpg",faceEngine);
+        float v = arcSoft.faceRecognition("D:\\Final year project\\Springboot\\Screenshot\\test2.jpeg", "D:\\Final year project\\Springboot\\File\\8ee4c53631d14a1d918d3a5c3ce63803.jpg",faceEngine);
         System.out.println("相似度为" + v);
         if (v==0){
             msg.setCode(400);
